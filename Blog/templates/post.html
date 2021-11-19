@@ -1,0 +1,74 @@
+{% extends 'base.html'%}
+{% load static %}
+{%block content %}
+        <!-- Page Header-->
+        <header class="masthead" style="background-image: url({{post.Thumb.url}})">
+            <div class="container position-relative px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-md-10 col-lg-8 col-xl-7">
+                        <div class="post-heading">
+                            <h1>{{post.Heading}}</h1>
+                            <h2 class="subheading">{{first}}</h2>
+                            <span class="meta">
+                                Posted by
+                                <a href="{% static 'profile'%}">{{post.author}}</a>
+                                {{post.date_created}}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!-- Post Content-->
+        <article class="mb-4">
+            <div class="container px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-md-10 col-lg-8 col-xl-7">
+                        {{post.Content|safe}}
+                    </div>
+                </div>
+            </div>
+        </article>
+    <div class="container">    
+        {% if post.author.username == user.username %}
+            <nav>
+                <a href="{% url 'update' post.id %}">Update</a>
+                <a href="{% url 'delete' post.id %}">Delete</a>
+            </nav>
+        {%endif%}
+        <div >
+        {% if user.is_authenticated %}
+            {%if liked %}
+            <a class="btn btn-danger btn-sm" href="{% url 'like' post.id%}" role="button">Unlike</a>   
+            {% else %}
+            <a class="btn btn-primary btn-sm" href="{% url 'like' post.id%}" role="button">Like</a>
+            {% endif %}
+            
+        {%else %}
+            <a class="btn btn-primary btn-sm" href="{% url 'login'%}" role="button">Like</a>
+        {%endif%}
+        -- {{total_likes}} Likes
+             
+                
+        </div>
+        <br><br>
+        <h4>Comments...</h2>
+        {% for comments in comments %}
+            <a href="{%url 'profile'%}" style="color:blue;">{{comments.user}}</a>
+            <time class="post-date" datetime="2016-12-14">{{comments.date}}</time> <br>
+            <strong>{{comments.body}}</strong>
+            <br>
+            <hr>
+            
+        {% endfor %}
+        <form action="{% url 'post' pk=post.id %}" method="POST">
+            {% csrf_token %}
+            {{comment_form.body}}
+            {% if user.is_authenticated %}
+                <input class="btn btn-primary btn-sm" type="submit" value="Add comment">
+            {%else %}
+                <a class="btn btn-primary btn-sm" href="{% url 'login'%}">Add comment</a>
+            {%endif%}
+        </form>
+    </div>
+{%endblock%}

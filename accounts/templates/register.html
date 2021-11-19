@@ -1,0 +1,38 @@
+{% extends 'base.html'%}
+{% load static %}
+{%block content %}
+
+ <!-- Page Header-->
+ <header class="masthead" style="background-image: url('/static/assets/img/home-bg.jpg')">
+    <div class="container position-relative px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <div class="site-heading">
+                    <h1>Register Page </h1>
+                    <form action="{% url 'register'%}" method="POST">
+                        {% csrf_token %}
+                        <div form-group>
+                            
+                            <input class="form-control" type="text" placeholder="User name" name="user_name"><br>
+                            <input class="form-control" type="text" placeholder="first name" name="first_name"><br>
+                            <input class="form-control" type="text" placeholder="last name" name="last_name"><br>
+                            <input class="form-control" type="email" placeholder="email" name="email"><br>
+                            <input class="form-control" type="password" placeholder="password" name="password1"><br>
+                            <input class="form-control" type="password" placeholder="confirm password" name="password2"><br><br>
+                        
+                        </div>
+                        <input class="btn btn-primary btn-lg active" type="submit" value="Register">
+                    </form>
+                    
+                    Already have an account ? <a class="btn btn-secondary btn-sm" href="{% url 'login'%}">Login</a>
+                    <div>
+                        {% for message in messages %}
+                            <h4>{{message}}</h4>
+                        {%endfor%}
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+   
+{%endblock%}

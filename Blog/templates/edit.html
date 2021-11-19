@@ -1,0 +1,24 @@
+{%extends 'base.html'%}
+{%load static %}
+{%block content%}
+        <!-- Page Header-->
+        <header class="masthead" style="background-image: url('/static/assets/img/about-bg.jpg')">
+            <div class="container position-relative px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-3 justify-content-center">
+                    <div class="col-md-10 col-lg-8 col-xl-10">
+                        <div class="site-heading">
+                            <form method="post" action="#" enctype="multipart/form-data">
+                                {%csrf_token%}
+                                {{form.as_p}}
+                                <input type="submit" name="Update">
+
+                            </form>
+
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+    
+{% endblock %}
