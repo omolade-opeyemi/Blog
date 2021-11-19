@@ -3,6 +3,7 @@ from .models import *
 from .forms import postForm, userAccount, CommentForm
 from django.http import HttpResponseRedirect
 from django.urls import reverse
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def homePage(request):
