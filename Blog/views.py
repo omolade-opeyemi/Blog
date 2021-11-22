@@ -14,8 +14,6 @@ def homePage(request):
 def contactPage(request):
     return render(request, 'contact.html')
 
-def aboutPage(request):
-    return render(request, 'about.html')
 
 def postPage(request, pk):
     post = Post.objects.get(id=pk)
@@ -51,10 +49,13 @@ def editProfile(request):
     context = {'form':form}
     return render(request, 'edit.html', context)
 
-def userPage(request): 
+def userPage(request, pk): 
     account = Account.objects.all()
-    post = request.user.post_set.all()
-    context={'post':post,}
+    user = User.objects.get(id=pk)
+    #post = Post.objects.filter(author=pk)
+    #post1 = Post.objects.get(author=pk)
+    p = user.post_set.all()
+    context={'post':p ,'user':user}
     return render(request, 'user.html', context)
 
 def likePage(request, pk):

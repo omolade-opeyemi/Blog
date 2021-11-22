@@ -8,10 +8,10 @@
                     <div class="col-md-10 col-lg-8 col-xl-7">
                         <div class="post-heading">
                             <h1>{{post.Heading}}</h1>
-                            <h2 class="subheading">{{first}}</h2>
+                            <h2 class="subheading">{{post.SubHeading|default_if_none:""}}</h2>
                             <span class="meta">
                                 Posted by
-                                <a href="{% static 'profile'%}">{{post.author}}</a>
+                                <a href="#">{{post.author}}</a>
                                 {{post.date_created}}
                             </span>
                         </div>
@@ -54,7 +54,7 @@
         <br><br>
         <h4>Comments...</h2>
         {% for comments in comments %}
-            <a href="{%url 'profile'%}" style="color:blue;">{{comments.user}}</a>
+            <a href="{%url 'profile' pk=comments.user.id %}" style="color:blue;">{{comments.user}}</a>
             <time class="post-date" datetime="2016-12-14">{{comments.date}}</time> <br>
             <strong>{{comments.body}}</strong>
             <br>

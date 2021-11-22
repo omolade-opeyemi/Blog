@@ -13,7 +13,7 @@
         <!-- Google fonts-->
         <link href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css" />
-        <!-- Core theme CSS (includes Bootstrap)-->
+        
         <link href="{% static 'css/styles.css' %}" rel="stylesheet" />
         
     </head>
@@ -32,8 +32,8 @@
                             <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="/">Home</a></li>
                             
                             {% if user.is_authenticated %}
-                            <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="#">Hello {{user.username}}</a></li>
-                            <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{%url 'profile'%}">Profile</a></li>
+                            <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="#">Hello {{request.user.username}}</a></li>
+                            <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{%url 'profile' request.user.id %}">Profile</a></li>
                             <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{%url 'add_post'%}">Add Post</a></li>
                             <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{%url 'logout'%}">Logout</a></li>
 
