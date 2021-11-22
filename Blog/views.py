@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def homePage(request):
-    post = Post.objects.all()
+    post = Post.objects.all().order_by('-date_created')
     context={'post':post}
     return render(request, 'index.html', context)
 
@@ -54,7 +54,7 @@ def userPage(request, pk):
     user = User.objects.get(id=pk)
     #post = Post.objects.filter(author=pk)
     #post1 = Post.objects.get(author=pk)
-    p = user.post_set.all()
+    p = user.post_set.all().order_by('-date_created')
     context={'post':p ,'user':user}
     return render(request, 'user.html', context)
 
