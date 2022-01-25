@@ -17,7 +17,7 @@ class Account(models.Model):
 
 
 class Post(models.Model):
-    author = models.ForeignKey(User, default=None,on_delete=models.CASCADE)
+    author = models.ForeignKey(User, default=None,on_delete=models.CASCADE, related_name = 'writer')
     Heading=models.CharField(max_length=200)
     SubHeading = models.CharField(max_length=200, null=True)
     Thumb = models.ImageField(default='post-bg.jpg', blank=True)

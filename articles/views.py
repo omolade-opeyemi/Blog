@@ -4,6 +4,7 @@ from Blog.models import Post
 # Create your views here.
 
 
+
 def addPostPage(request):
     post = postForm()
     if request.method == 'POST':
