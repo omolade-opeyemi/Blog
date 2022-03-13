@@ -5,4 +5,5 @@ from . models import *
 admin.site.register(Account)
 admin.site.register(Post)
 admin.site.register(Comment)
+admin.site.register(Likes)
 

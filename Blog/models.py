@@ -15,12 +15,13 @@ class Account(models.Model):
     def __str__(self):
         return self.first_name
 
-
+def upload_path(instance,filename):
+    return '/'.join([filename]) 
 class Post(models.Model):
     author = models.ForeignKey(User, default=None,on_delete=models.CASCADE, related_name = 'writer')
     Heading=models.CharField(max_length=200)
-    SubHeading = models.CharField(max_length=200, null=True)
-    Thumb = models.ImageField(default='post-bg.jpg', blank=True)
+    SubHeading = models.CharField(max_length=200, null=True, blank=True)
+    Thumb = models.ImageField(default='car 1.jpg', blank=True,null=True,upload_to=upload_path)
     Content = RichTextField(blank=True, null=True)
     date_created=models.DateTimeField(auto_now_add=True)
     likes = models.ManyToManyField(User, related_name='blog_post',blank=True)
@@ -32,6 +33,10 @@ class Post(models.Model):
         return self.Heading
     def snippet(self):
         return self.Content[:100]+'...'
+class Likes(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE,related_name='like')
+    like = models.ManyToManyField(User, related_name='likes',blank=True)
+    active = models.BooleanField(default=True)
 
 class Comment(models.Model):
     user = models.ForeignKey(User, default=None,on_delete=models.CASCADE)

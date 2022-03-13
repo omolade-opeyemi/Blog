@@ -49,8 +49,10 @@ INSTALLED_APPS = [
     'accounts',
     'articles',
     'rest_framework',
+    'knox',
     'django_filters',
     'drf_yasg',
+    'corsheaders',
     
 ]
 
@@ -68,9 +70,13 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
+    "corsheaders.middleware.CorsMiddleware",
+    
 ]
 
 ROOT_URLCONF = 'Read.urls'
+CORS_ORIGIN_ALLOW_ALL = True
+    
 
 TEMPLATES = [
     {
@@ -156,18 +162,22 @@ django_heroku.settings(locals())
 
 
 REST_FRAMEWORK = {
-    'DEFAULT_RENDERER_CLASSES': [
-        'rest_framework.renderers.JSONRenderer',
-        'rest_framework.renderers.BrowsableAPIRenderer',
+    'DEFAULT_PARSER_CLASSES': (
+    'rest_framework.parsers.JSONParser',
+    'rest_framework.parsers.FormParser',
+    'rest_framework.parsers.MultiPartParser',
+),
+
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticatedOrReadOnly',
     ],
-    'DEFAULT_AUTHENTICATION_CLASSES':[
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
-    ],
-    'DEFAULT_PERMISSION_CLASSES':[
-            'rest_framework.permissions.AllowAny',
-    ], 
+        'knox.auth.TokenAuthentication',
+    ]
 }
+
 
 
  
